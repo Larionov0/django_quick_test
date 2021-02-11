@@ -133,7 +133,7 @@ class ProductionConsumed(models.Model):
     quantity = models.DecimalField(max_digits=10, decimal_places=3)
     
     def __str__(self):
-        return f"{self.prod_report} - {self.consumed} - {self.quantity}"
+        return f"{self.produced} - {self.consumed} - {self.quantity}"
     
     class Meta:
         verbose_name = "Списанные материалы"
