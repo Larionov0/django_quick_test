@@ -124,9 +124,10 @@ class ProductionProduced(models.Model):
 class ProductionConsumed(models.Model):
     '''
     Номенклатура, которая была списана в результате производства
+    и связанная с ProductionProduced
     '''
     
-    prod_report = models.ForeignKey(Production, on_delete=models.CASCADE)
+    produced = models.ForeignKey(ProductionProduced, on_delete=models.CASCADE)
     consumed = models.ForeignKey(Nomenclature, on_delete=models.PROTECT)
     consumed_uom = models.ForeignKey(UOM, on_delete=models.PROTECT)
     quantity = models.DecimalField(max_digits=10, decimal_places=3)
