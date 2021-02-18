@@ -147,4 +147,6 @@ class ProductionConsumed(models.Model):
         start_date = date_X - timedelta(days=30)
         purchases = Purchase.objects.filter(material_id=self.consumed.id)
         last_purchases = list(filter(lambda purchase: purchase.purch_date >= start_date, purchases))
+        if len(last_purchases) == 0:
+            last_purchases = [purchases[-1]]  # если материал был закуплен больше чем 30 дней назад, возьмем последнюю закупку
         return sum(map(lambda purchase: purchase.price_ex_vat, last_purchases)) / sum(map(lambda purchase: purchase.quantity, last_purchases))
