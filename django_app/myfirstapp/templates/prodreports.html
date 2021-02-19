@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Production reports</title>
+{% endblock %}
+
+{% block content %}
+    <h1>Production reports</h1>
+    <div id="prod_list">
+        {% for prod in productions %}
+            <div class="production" id="prod_{{ prod.id }}" style="border: 1px solid black; margin: 5px; padding: 10px">
+                <h2><a href="{% url 'myfirstapp:production_detail' prod.id %}">Отчет за {{prod.prod_date}}</a></h2>
+                <p>{{ prod.description }}</p>
+            </div>
+        {%endfor%}
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Отчет {{production.id}}</title>
+{% endblock %}
+
+{% block content %}
+    <h1>Отчет {{production.id}} ({{production.prod_date}})</h1>
+    <p>{{ production.description }}</p>
+    <div id="produced_list">
+        <h2>Произведено:</h2>
+        {% for prod_produced in prod_produced_set %}
+        <div class="prod_produced">
+            <h3>{{ prod_produced.produced }}</h3>
+            <p>Колличество: {{ prod_produced.quantity }}</p>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
