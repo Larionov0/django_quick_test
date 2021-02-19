@@ -1,6 +1,14 @@
 .prod_produced {
 	border: 1px solid black;
 	border-radius: 20px;
-	margin: 10px;
+	margin: 25px;
 	padding: 10px;
+}
+
+.material_consumed {
+	border: 1px solid black;
+	border-radius: 10px;
+	background-color: rgba(100, 100, 0, 0.1);
+	padding-left: 4px;
+	margin: 3px;
 }

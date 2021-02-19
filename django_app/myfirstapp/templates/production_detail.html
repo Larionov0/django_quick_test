@@ -18,6 +18,16 @@
             <h3>{{ prod_produced.produced }}</h3>
             <p>Колличество: {{ prod_produced.quantity }} {{ prod_produced.produced_uom }}</p>
             <p>Себестоимость: {{ prod_produced.cost_price }}</p>
+            <h4>Материалы:</h4>
+            <div id="Materials">
+                {% for material_consumed in prod_produced.productionconsumed_set.all %}
+                <div class="material_consumed">
+                    <h5>{{ material_consumed.consumed }}</h5>
+                    <p>{{ material_consumed.quantity }} {{ material_consumed.consumed_uom }}</p>
+                    <p>Полная стоимость: {{ material_consumed.full_purchase_price }}</p>
+                </div>
+                {% endfor %}
+            </div>
         </div>
         {% endfor %}
     </div>
