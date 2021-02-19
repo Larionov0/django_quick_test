@@ -121,6 +121,11 @@ class ProductionProduced(models.Model):
     class Meta:
         verbose_name = "Произведенная продукция"
         verbose_name_plural = verbose_name
+    
+    @property
+    def cost_price(self):
+        materials_consumed = ProductionConsumed.objects.filter(produced=self)
+        return sum(map(lambda material: material.full_purchase_price, materials_consumed))
 
 
 class ProductionConsumed(models.Model):
@@ -150,3 +155,11 @@ class ProductionConsumed(models.Model):
         if len(last_purchases) == 0:
             last_purchases = [purchases[-1]]  # если материал был закуплен больше чем 30 дней назад, возьмем последнюю закупку
         return sum(map(lambda purchase: purchase.price_ex_vat, last_purchases)) / sum(map(lambda purchase: purchase.quantity, last_purchases))
+
+    @property
+    def full_purchase_price(self):
+        """
+        Возвращает стоимость затраты.
+        Учитывается колличество потраченного материала.
+        """
+        return self.average_purchase_price * self.quantity

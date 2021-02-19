@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
 
-{% block title %}
+{% block head %}
     <title>Отчет {{production.id}}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/production_detail.css' %}">
 {% endblock %}
 
 {% block content %}
     <h1>Отчет {{production.id}} ({{production.prod_date}})</h1>
+    <br>
     <p>{{ production.description }}</p>
+    <br>
     <div id="produced_list">
         <h2>Произведено:</h2>
         {% for prod_produced in prod_produced_set %}
         <div class="prod_produced">
             <h3>{{ prod_produced.produced }}</h3>
-            <p>Колличество: {{ prod_produced.quantity }}</p>
+            <p>Колличество: {{ prod_produced.quantity }} {{ prod_produced.produced_uom }}</p>
+            <p>Себестоимость: {{ prod_produced.cost_price }}</p>
         </div>
         {% endfor %}
     </div>
