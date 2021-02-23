@@ -150,10 +150,9 @@ class ProductionConsumed(models.Model):
     def average_purchase_price(self):
         date_X = self.produced.prod_report.prod_date
         start_date = date_X - timedelta(days=30)
-        purchases = Purchase.objects.filter(material_id=self.consumed.id)
-        last_purchases = list(filter(lambda purchase: purchase.purch_date >= start_date, purchases))
-        if len(last_purchases) == 0:
-            last_purchases = [list(purchases)[-1]]  # если материал был закуплен больше чем 30 дней назад, возьмем последнюю закупку
+        last_purchases = Purchase.objects.filter(material_id=self.consumed.id, purch_date__gte=start_date)
+        if last_purchases.count() == 0:
+            last_purchases = [Purchase.objects.filter(material_id=self.consumed.id).latest('purch_date')]
         return sum(map(lambda purchase: purchase.price_ex_vat, last_purchases)) / sum(map(lambda purchase: purchase.quantity, last_purchases))
 
     @property
